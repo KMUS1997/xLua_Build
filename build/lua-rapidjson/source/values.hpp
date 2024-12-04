@@ -7,7 +7,7 @@
 #include <rapidjson/document.h>
 #include <rapidjson/reader.h>
 #include <rapidjson/error/en.h>
-#include <utility>
+
 #include "luax.hpp"
 #include "StringStream.hpp"
 
@@ -229,17 +229,16 @@ namespace values {
 	}
 
 	inline rapidjson::Value toValue(lua_State* L, int idx, Allocator& allocator) {
-	    return std::move(details::toValue(L, idx, 0, allocator)); // 使用std::move
+		return details::toValue(L, idx, 0, allocator);
 	}
 
 	inline void toDocument(lua_State* L, int idx, rapidjson::Document* doc) {
-	    rapidjson::Value tempValue = details::toValue(L, idx, 0, doc->GetAllocator()); 
-	    tempValue.Swap(*doc); // 使用临时对象并交换
+		details::toValue(L, idx, 0, doc->GetAllocator()).Swap(*doc);
 	}
 
 	inline void pushValue(lua_State *L, const rapidjson::Value& v) {
-	    ToLuaHandler handler(L);
-	    v.Accept(handler);
+		ToLuaHandler handler(L);
+		v.Accept(handler);
 	}
 
 
