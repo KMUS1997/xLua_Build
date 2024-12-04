@@ -224,13 +224,12 @@ namespace values {
 	};
 
 
-	namespace details {
-	    rapidjson::Value& toValue(lua_State* L, int idx, int depth, Allocator& allocator);	    // 修改：返回引用，避免拷贝
+namespace details {
+		rapidjson::Value toValue(lua_State* L, int idx, int depth, Allocator& allocator);
 	}
 
-	// 修改：返回引用，避免拷贝
-	inline rapidjson::Value& toValue(lua_State* L, int idx, Allocator& allocator) {
-	    return details::toValue(L, idx, 0, allocator);  // 返回引用，避免拷贝
+	inline rapidjson::Value toValue(lua_State* L, int idx, Allocator& allocator) {
+		return details::toValue(L, idx, 0, allocator);
 	}
 
 	inline void toDocument(lua_State* L, int idx, rapidjson::Document* doc) {
