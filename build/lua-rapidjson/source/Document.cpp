@@ -110,14 +110,14 @@ static int Document_get(lua_State* L) {
 }
 
 static int Document_set(lua_State* L) {
-	Document* doc = Userdata<Document>::check(L, 1);
-	Pointer ptr(luaL_checkstring(L, 2));
-	Value v = values::toValue(L, 3, doc->GetAllocator());
-
-	ptr.Set(*doc, v, doc->GetAllocator());
-
-	return 0;
+    Document* doc = Userdata<Document>::check(L, 1);
+    Pointer ptr(luaL_checkstring(L, 2));
+    rapidjson::Value v(doc->GetAllocator());
+    values::toValue(L, 3, doc->GetAllocator()).Swap(v);
+    ptr.Set(*doc, v, doc->GetAllocator());
+    return 0;
 }
+
 
 /**
  * local jsonstr = doc:stringify({pretty=false})
