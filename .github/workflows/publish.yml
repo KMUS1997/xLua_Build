@@ -232,10 +232,10 @@ jobs:
     needs: [windows,android,windows-luajit-32,ohos,linux]
     
     steps:
-      - uses: actions/download-artifact@v4.1.7
-        with:
-          name: plugin_luajit
-          path: plugin_luajit/
+      # - uses: actions/download-artifact@v4.1.7
+      #   with:
+      #     name: plugin_luajit
+      #     path: plugin_luajit/
           
       - uses: actions/download-artifact@v4.1.7
         with:
